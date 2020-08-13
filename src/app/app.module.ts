@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ListarDecksModule } from './components/deck/listar-decks/listar-decks.module';
+import { LoaderModule } from './components/shared/loader/loader.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ListarDecksModule } from './components/deck/listar-decks/listar-decks.m
     HttpClientModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    ListarDecksModule
+    ListarDecksModule,
+    LoaderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

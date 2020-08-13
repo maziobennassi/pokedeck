@@ -5,7 +5,7 @@ import { ListarDecksComponent } from './listar-decks.component';
 
 
 const routes: Routes = [
-  { path: 'decks' , component: ListarDecksComponent }
+  { path: '' , component: ListarDecksComponent }
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],

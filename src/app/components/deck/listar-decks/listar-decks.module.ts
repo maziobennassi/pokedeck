@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -22,6 +23,7 @@ import { ListarDecksComponent } from './listar-decks.component';
     ListarDecksComponent
   ],
   imports: [
+    CommonModule,
     FormsModule,
     MatPaginatorModule,
     MatTableModule,
