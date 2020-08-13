@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Carta } from 'src/app/models/carta';
@@ -14,19 +14,21 @@ import { ModalConfirmacaoComponent } from '../../shared/modal-confirmacao/modal-
   templateUrl: './manter-decks.component.html',
   styleUrls: ['./manter-decks.component.css']
 })
-export class ManterDecksComponent implements OnInit {
-  deck: Deck = new Deck();
-  cartas: Carta[];
-  pagina: number = 1;
-  quantidadePagina: number = 20;
-  pesquisa: string = "";
+export class ManterDecksComponent implements OnInit, OnDestroy {
+  public deck: Deck = new Deck();
+  public cartas: Carta[];
+  public pagina: number = 1;
+  private quantidadePagina: number = 20;
+  private pesquisa: string = "";
+  private dialogSub: any;
+  private apiPokemonSub: any;
 
   constructor(private apiPokemonService: ApiPokemonService,
               private deckService: DeckService,
               private router: Router,
               private route: ActivatedRoute,
               private notificationService: NotificationService,
-              public dialog: MatDialog) { }
+              private dialog: MatDialog) { }
 
   ngOnInit(): void {
       const id = this.route.snapshot.params.id;
@@ -36,6 +38,11 @@ export class ManterDecksComponent implements OnInit {
       }
 
       this.buscarPaginado();
+  }
+
+  ngOnDestroy(): void {
+    this.dialogSub?.unsubscribe();
+    this.apiPokemonSub?.unsubscribe();
   }
 
   adicionarCarta(novaCarta: Carta): void {
@@ -71,13 +78,13 @@ export class ManterDecksComponent implements OnInit {
   }
 
   buscarPaginado(): void {
-    this.apiPokemonService.buscarTodasCartasPaginado(this.pagina, this.quantidadePagina).subscribe(result => {
+    this.apiPokemonSub = this.apiPokemonService.buscarTodasCartasPaginado(this.pagina, this.quantidadePagina).subscribe(result => {
       this.cartas = result.cards;
     });
   }
 
   buscarPaginadoFiltrado(): void {
-    this.apiPokemonService.buscarTodasCartasPaginadoPorNome(this.pagina, this.quantidadePagina, this.pesquisa).subscribe(result => {
+    this.apiPokemonSub = this.apiPokemonService.buscarTodasCartasPaginadoPorNome(this.pagina, this.quantidadePagina, this.pesquisa).subscribe(result => {
       this.cartas = result.cards;
     });
   }
@@ -128,7 +135,7 @@ export class ManterDecksComponent implements OnInit {
   confirmacaoRemoverCarta(carta: Carta): void {
     const dialogRef = this.dialog.open(ModalConfirmacaoComponent);
 
-    dialogRef.afterClosed().subscribe(result => {
+     this.dialogSub = dialogRef.afterClosed().subscribe(result => {
       console.log(result);
       if (result) {
         this.removerCarta(carta);

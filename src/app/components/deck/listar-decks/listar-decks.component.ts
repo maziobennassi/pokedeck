@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -14,23 +14,28 @@ import { ModalConfirmacaoComponent } from '../../shared/modal-confirmacao/modal-
   templateUrl: './listar-decks.component.html',
   styleUrls: ['./listar-decks.component.css']
 })
-export class ListarDecksComponent implements OnInit {
-  colunasTabela: string[] = ['nome', 'quantidadeCartas', 'acoes'];
-  dataSource = new MatTableDataSource<Deck>();
-  decks: Deck[] = [];
+export class ListarDecksComponent implements OnInit, OnDestroy {
+  public colunasTabela: string[] = ['nome', 'quantidadeCartas', 'acoes'];
+  public dataSource = new MatTableDataSource<Deck>();
+  private decks: Deck[] = [];
+  private dialogSub: any;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(private deckService: DeckService,
               private notificationService: NotificationService,
-              public dialog: MatDialog) { }
+              private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.decks = this.deckService.buscarTodos();
     this.dataSource.data = this.decks;
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+  ngOnDestroy(): void {
+    this.dialogSub?.unsubscribe();
   }
 
   filtrarTabela(filtro: string): void {
@@ -42,7 +47,7 @@ export class ListarDecksComponent implements OnInit {
   confirmacaoRemover(deck: Deck): void {
     const dialogRef = this.dialog.open(ModalConfirmacaoComponent);
 
-    dialogRef.afterClosed().subscribe(result => {
+    this.dialogSub = dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.remover(deck);
       }

@@ -13,29 +13,34 @@ import { ResponseCarta } from '../models/response-carta';
 export class ApiPokemonService {
 
   private baseUrl: string = environment.apiPokemon;
+  private baseUrlConsultar: string = `${this.baseUrl}/cards`;
 
   constructor(private http: HttpClient) { }
 
   buscarTodasCartas(): Observable<ResponseCarta> {
-    const API_URL = `${this.baseUrl}/cards`;
-    return this.http.get<ResponseCarta>(`${API_URL}`).pipe(catchError(this.handleError));
+    const API_URL = this.baseUrlConsultar;
+    return this.get(API_URL);
   }
 
   buscarTodasCartasPaginado(pagina: number, tamanhoPagina: number): Observable<ResponseCarta> {
-    const API_URL = `${this.baseUrl}/cards`;
+    const API_URL = this.baseUrlConsultar;
     const API_QUERY = `?page=${pagina}&pageSize=${tamanhoPagina}`;
-    return this.http.get<ResponseCarta>(`${API_URL}${API_QUERY}`).pipe(catchError(this.handleError));
+    return this.get(`${API_URL}${API_QUERY}`);
   }
 
   buscarTodasCartasPaginadoPorNome(pagina: number, tamanhoPagina: number, filtro: string): Observable<ResponseCarta> {
-    const API_URL = `${this.baseUrl}/cards`;
+    const API_URL = this.baseUrlConsultar;
     const API_QUERY = `?page=${pagina}&pageSize=${tamanhoPagina}&name=${filtro}`;
-    return this.http.get<ResponseCarta>(`${API_URL}${API_QUERY}`).pipe(catchError(this.handleError));
+    return this.get(`${API_URL}${API_QUERY}`);
   }
 
   buscarCarta(id: string): Observable<ResponseCarta> {
-    const API_URL = `${this.baseUrl}/cards/${id}`;
-    return this.http.get<ResponseCarta>(`${API_URL}`).pipe(catchError(this.handleError));
+    const API_URL = `${this.baseUrlConsultar}/${id}`;
+    return this.get(API_URL);
+  }
+
+  protected get(endpoint: string): Observable<ResponseCarta> {
+    return this.http.get<ResponseCarta>(endpoint).pipe(catchError(this.handleError));
   }
 
   protected handleError(error: Response | any) {
