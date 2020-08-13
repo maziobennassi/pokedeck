@@ -1,0 +1,48 @@
+.container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.container-cartas {
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    float: left;
+}
+
+.container-botoes {
+    width: 100%;
+}
+
+.container-botoes button {
+    margin-left: 10px;
+}
+
+.container-dados-deck {
+    width: 20%;
+    max-height: 400px;
+    flex-wrap: nowrap;
+    float: right;
+}
+
+.filtro {
+    width: 98%;
+}
+
+.campos-container {
+    width: 100%;
+}
+
+.botes-quantidade {
+    float: right;
+}
+
+.botes-quantidade button {
+    margin-left: 10px;
+}
+
+.detalhes-carta {
+    margin-bottom: 10px;
+}

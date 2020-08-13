@@ -3,24 +3,23 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { CartaModule } from './components/carta/carta.module';
-import { DeckModule } from './components/deck/deck.module';
+import { ExibicaoCartasComponent } from '../carta/exibicao-cartas/exibicao-cartas.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    ExibicaoCartasComponent
+  ],
+  exports: [
+    ExibicaoCartasComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    AppRoutingModule,
-    CartaModule,
-    DeckModule
+    SharedModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [ExibicaoCartasComponent]
 })
-export class AppModule { }
+export class CartaModule { }

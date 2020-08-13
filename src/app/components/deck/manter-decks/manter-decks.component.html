@@ -1,0 +1,52 @@
+<div class="container">
+    <div class="container-cartas">
+        <mat-form-field class="filtro">
+            <mat-label>Pesquisa</mat-label>
+            <input matInput (keyup)="filtrarCartas($event.target.value)">
+        </mat-form-field>
+        <div *ngFor="let carta of cartas;">
+            <exibicao-cartas [carta]="carta" (click)="adicionarCarta(carta)"></exibicao-cartas>
+        </div>
+    </div>
+    <div class="container-dados-deck">
+        <mat-card>
+            <div class="example-container">
+                <form (ngSubmit)="salvar()" autocomplete="off">
+                    <mat-form-field class="campos-container">
+                        <mat-label>Nome</mat-label>
+                        <input matInput type="text" required [(ngModel)]="deck.nome" name="nome" id="nome" maxlength="100">
+                    </mat-form-field>
+                    <button type="submit" [disabled]="!deck.nome" class="campos-container" mat-flat-button color="primary">Salvar</button>
+
+                    <h2 *ngIf="deck.cartas?.length > 0">Cartas:</h2>
+                    <div *ngFor="let carta of deck.cartas">
+                        <mat-card class="detalhes-carta">
+                            <button type="button" mat-mini-fab color="accent">
+                                {{carta.quantidade}}
+                            </button> {{carta.name}}
+                            <div class="botes-quantidade">
+                                <button type="button" mat-mini-fab color="primary" [disabled]="carta.quantidade == 4 || retornarQuantidadeTotalCartas() == 60" (click)="aumentarQuantidade(carta)">
+                                    <mat-icon>add</mat-icon>
+                                </button>
+                                <button type="button" mat-mini-fab color="warn" [disabled]="carta.quantidade == 1" (click)="diminuirQuantidade(carta)">
+                                    <mat-icon>remove</mat-icon>
+                                </button>
+                                <button type="button" mat-mini-fab color="warn" (click)="confirmacaoRemoverCarta(carta)">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </div>
+                        </mat-card>
+                    </div>
+
+                </form>
+            </div>
+        </mat-card>
+    </div>
+</div>
+
+<div class="container-botoes">
+    <button mat-flat-button color="primary" [disabled]="pagina === 1" (click)="paginaAnterior()">Anterior</button>
+    <button mat-flat-button color="primary" [disabled]="cartas?.length < 20" (click)="proximaPagina()">Próximo</button>
+</div>
+
+<loader></loader>

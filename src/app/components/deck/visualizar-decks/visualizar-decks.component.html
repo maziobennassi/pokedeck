@@ -1,0 +1,10 @@
+<p>Quantidades de cartas por Tipo:</p>
+<p *ngFor="let tipo of tipos">
+    {{tipo}} - {{quantidadeCartasPorSupertype(tipo)}}
+</p>
+<div>
+    Tipos de energia: {{tiposEnergia.length}}
+    <div>
+        <img *ngFor="let tipoEnergia of tiposEnergia" [src]="retornarCaminhoImagem(tipoEnergia)" />
+    </div>
+</div>
