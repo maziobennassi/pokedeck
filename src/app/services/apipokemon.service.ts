@@ -11,9 +11,7 @@ import { ResponseCarta } from '../models/response-carta';
 })
 
 export class ApiPokemonService {
-
-  private baseUrl: string = environment.apiPokemon;
-  private baseUrlConsultar: string = `${this.baseUrl}/cards`;
+  private baseUrlConsultar: string = environment.apiPokemon + '/cards';
 
   constructor(private http: HttpClient) { }
 
@@ -22,13 +20,13 @@ export class ApiPokemonService {
   }
 
   buscarTodasCartasPaginado(pagina: number, tamanhoPagina: number): Observable<ResponseCarta> {
-    const API_QUERY = `?page=${pagina}&pageSize=${tamanhoPagina}`;
-    return this.get(API_QUERY);
+    const QUERY_STRING = `?page=${pagina}&pageSize=${tamanhoPagina}`;
+    return this.get(QUERY_STRING);
   }
 
   buscarTodasCartasPaginadoPorNome(pagina: number, tamanhoPagina: number, filtro: string): Observable<ResponseCarta> {
-    const API_QUERY = `?page=${pagina}&pageSize=${tamanhoPagina}&name=${filtro}`;
-    return this.get(API_QUERY);
+    const QUERY_STRING = `?page=${pagina}&pageSize=${tamanhoPagina}&name=${filtro}`;
+    return this.get(QUERY_STRING);
   }
 
   private get(queryString: string = ""): Observable<ResponseCarta> {

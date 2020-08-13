@@ -5,20 +5,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CartaModule } from './components/carta/carta.module';
-import { DeckModule } from './components/deck/deck.module';
+import { ListarDecksModule } from './components/deck/listar-decks/listar-decks.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    CartaModule,
-    DeckModule
+    ListarDecksModule
   ],
   providers: [],
   bootstrap: [AppComponent]
