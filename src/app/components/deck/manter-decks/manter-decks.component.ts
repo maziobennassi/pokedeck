@@ -24,20 +24,20 @@ export class ManterDecksComponent implements OnInit, OnDestroy {
   private apiPokemonSub: any;
 
   constructor(private apiPokemonService: ApiPokemonService,
-              private deckService: DeckService,
-              private router: Router,
-              private route: ActivatedRoute,
-              private notificationService: NotificationService,
-              private dialog: MatDialog) { }
+    private deckService: DeckService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private notificationService: NotificationService,
+    private dialog: MatDialog) { }
 
   ngOnInit(): void {
-      const id = this.route.snapshot.params.id;
+    const id = this.route.snapshot.params.id;
 
-      if (id) {
-        this.deck = this.deckService.buscarPorId(id);
-      }
+    if (id) {
+      this.deck = this.deckService.buscarPorId(id);
+    }
 
-      this.buscarPaginado();
+    this.buscarPaginado();
   }
 
   ngOnDestroy(): void {
@@ -45,31 +45,24 @@ export class ManterDecksComponent implements OnInit, OnDestroy {
     this.apiPokemonSub?.unsubscribe();
   }
 
-  adicionarCarta(novaCarta: Carta): void {
-    const totalCartas = this.retornarQuantidadeTotalCartas();
-    if(!this.deck.cartas.find(carta => carta.id === novaCarta.id)) {
-      if (totalCartas < 60) {
-        novaCarta.quantidade = 1;
-        this.deck.cartas.push(novaCarta);
-      } else {
-      this.notificationService.mensagemAlerta("O deck atingiu o limite máximo de 60 cartas.");
-      }
-    } else {
-      this.notificationService.mensagemAlerta("Esta carta já foi adicionada ao deck.");
+  public adicionarCarta(novaCarta: Carta): void {
+    if (this.verificarCartaAdicionada(novaCarta) && this.validarQuantidadeMaximaCartasDeck()) {
+      novaCarta.quantidade = 1;
+      this.deck.cartas.push(novaCarta);
     }
   }
 
-  proximaPagina(): void {
+  public proximaPagina(): void {
     this.pagina += 1;
     this.consultar();
   }
 
-  paginaAnterior(): void {
+  public paginaAnterior(): void {
     this.pagina -= 1;
     this.consultar();
   }
 
-  consultar(): void {
+  private consultar(): void {
     if (this.pesquisa) {
       this.buscarPaginadoFiltrado();
     } else {
@@ -77,65 +70,53 @@ export class ManterDecksComponent implements OnInit, OnDestroy {
     }
   }
 
-  buscarPaginado(): void {
+  private buscarPaginado(): void {
     this.apiPokemonSub = this.apiPokemonService.buscarTodasCartasPaginado(this.pagina, this.quantidadePagina).subscribe(result => {
       this.cartas = result.cards;
     });
   }
 
-  buscarPaginadoFiltrado(): void {
+  private buscarPaginadoFiltrado(): void {
     this.apiPokemonSub = this.apiPokemonService.buscarTodasCartasPaginadoPorNome(this.pagina, this.quantidadePagina, this.pesquisa).subscribe(result => {
       this.cartas = result.cards;
     });
   }
 
-  validarDeck(): boolean {
-    const totalCartas = this.retornarQuantidadeTotalCartas();
-    return totalCartas >= 24 && totalCartas <= 60;
-  }
-
-  aumentarQuantidade(carta: Carta): void {
-    const totalCartas = this.retornarQuantidadeTotalCartas();
-    if (carta.quantidade < 4 && totalCartas < 60) {
+  public aumentarQuantidade(carta: Carta): void {
+    if (carta.quantidade < 4 && this.validarQuantidadeMaximaCartasDeck()) {
       carta.quantidade += 1;
     }
   }
 
-  diminuirQuantidade(carta: Carta): void {
+  public diminuirQuantidade(carta: Carta): void {
     if (carta.quantidade > 1) {
       carta.quantidade -= 1;
     }
   }
 
-  filtrarCartas(pesquisa: string): void {
-      this.pesquisa = pesquisa;
-      this.buscarPaginadoFiltrado();
+  public filtrarCartas(pesquisa: string): void {
+    this.pesquisa = pesquisa;
+    this.buscarPaginadoFiltrado();
   }
 
-  salvar(): void {
-    if (this.deck.nome.trim()) {
-      if (this.validarDeck()) {
-        this.deck.quantidadeCartas = this.retornarQuantidadeTotalCartas();
-        if (this.deck.id > 0) {
-          this.deckService.editar(this.deck);
-          this.notificationService.mensagemSucesso("Deck editado com sucesso!");
-        } else {
-          this.deckService.salvar(this.deck);
-          this.notificationService.mensagemSucesso("Deck cadastrado com sucesso!");
-        }
-        this.router.navigate(['decks']);
+  public salvar(): void {
+    if (this.validarDeck()) {
+      this.deck.quantidadeCartas = this.retornarQuantidadeTotalCartas();
+      if (this.deck.id > 0) {
+        this.deckService.editar(this.deck);
+        this.notificationService.mensagemSucesso("Deck editado com sucesso!");
       } else {
-        this.notificationService.mensagemAlerta("O deck deve possuir no mínimo 24 cartas e no máximo 60 cartas.");
+        this.deckService.salvar(this.deck);
+        this.notificationService.mensagemSucesso("Deck cadastrado com sucesso!");
       }
-    } else {
-      this.notificationService.mensagemAlerta("Informe um nome válido para o deck.");
+      this.router.navigate(['decks']);
     }
   }
 
-  confirmacaoRemoverCarta(carta: Carta): void {
+  public confirmacaoRemoverCarta(carta: Carta): void {
     const dialogRef = this.dialog.open(ModalConfirmacaoComponent);
 
-     this.dialogSub = dialogRef.afterClosed().subscribe(result => {
+    this.dialogSub = dialogRef.afterClosed().subscribe(result => {
       console.log(result);
       if (result) {
         this.removerCarta(carta);
@@ -143,13 +124,55 @@ export class ManterDecksComponent implements OnInit, OnDestroy {
     });
   }
 
-  removerCarta(carta: Carta): void {
+  private removerCarta(carta: Carta): void {
     const index = this.deck.cartas.indexOf(carta);
     this.deck.cartas.splice(index, 1);
     this.notificationService.mensagemSucesso("Carta removida com sucesso!");
   }
 
-  retornarQuantidadeTotalCartas(): number {
+  public retornarQuantidadeTotalCartas(): number {
     return this.deck.cartas.reduce((anterior, atual) => +anterior + +atual.quantidade, 0);
+  }
+
+  public validarDeck(): boolean {
+    return this.validarQuantidadeCartasDeck() && this.validarNomeDeck();
+  }
+
+  private validarQuantidadeMaximaCartasDeck(): boolean {
+    const totalCartas = this.retornarQuantidadeTotalCartas();
+    if (totalCartas < 60) {
+      return true;
+    } else {
+      this.notificationService.mensagemAlerta("O deck atingiu o limite máximo de 60 cartas.");
+      return false;
+    }
+  }
+
+  private validarQuantidadeCartasDeck(): boolean {
+    const totalCartas = this.retornarQuantidadeTotalCartas();
+    if (totalCartas >= 24 && totalCartas <= 60) {
+      return true;
+    } else {
+      this.notificationService.mensagemAlerta("O deck deve possuir no mínimo 24 cartas e no máximo 60 cartas.");
+      return false;
+    }
+  }
+
+  private verificarCartaAdicionada(novaCarta: Carta): boolean {
+    if (!this.deck.cartas.find(carta => carta.id === novaCarta.id)) {
+      return true;
+    } else {
+      this.notificationService.mensagemAlerta("Esta carta já foi adicionada ao deck.");
+      return false;
+    }
+  }
+
+  private validarNomeDeck() {
+    if (this.deck.nome && this.deck.nome.trim()) {
+      return true;
+    } else {
+      this.notificationService.mensagemAlerta("Informe um nome válido para o deck.");
+      return false;
+    }
   }
 }

@@ -38,13 +38,13 @@ export class ListarDecksComponent implements OnInit, OnDestroy {
     this.dialogSub?.unsubscribe();
   }
 
-  filtrarTabela(filtro: string): void {
+  public filtrarTabela(filtro: string): void {
     filtro = filtro.trim();
     filtro = filtro.toLowerCase();
     this.dataSource.filter = filtro;
   }
   
-  confirmacaoRemover(deck: Deck): void {
+  public confirmacaoRemover(deck: Deck): void {
     const dialogRef = this.dialog.open(ModalConfirmacaoComponent);
 
     this.dialogSub = dialogRef.afterClosed().subscribe(result => {
@@ -54,7 +54,7 @@ export class ListarDecksComponent implements OnInit, OnDestroy {
     });
   }
 
-  remover(deck: Deck): void {
+  private remover(deck: Deck): void {
     this.deckService.remover(deck);
     const index = this.decks.indexOf(deck);
     this.decks.splice(index, 1);

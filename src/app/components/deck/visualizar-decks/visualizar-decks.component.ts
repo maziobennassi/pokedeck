@@ -27,19 +27,19 @@ export class VisualizarDecksComponent implements OnInit {
     }
   }
 
-  quantidadeCartasPorSupertype(tipo: string): number {
+  public quantidadeCartasPorSupertype(tipo: string): number {
     return this.deck.cartas.filter(carta => carta.supertype === tipo).length;
   }
 
-  retornarCaminhoImagem(tipoEnergia: string): string {
+  public retornarCaminhoImagem(tipoEnergia: string): string {
     return `../../.../../../../assets/images/${tipoEnergia.toLowerCase()}.png`;
   }
 
-  removerItensDuplicados(lista: string[]): string[] {
+  private removerItensDuplicados(lista: string[]): string[] {
     return lista.filter((valor, index, array) => array.indexOf(valor) === index);
   }
 
-  preencherTodosTiposEnergia(): void {
+  private preencherTodosTiposEnergia(): void {
     this.deck.cartas.map(carta => carta.types).forEach(tipos => tipos?.forEach(tipo => this.todosTiposEnergia.push(tipo)));
   }
 }

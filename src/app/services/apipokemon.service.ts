@@ -15,16 +15,16 @@ export class ApiPokemonService {
 
   constructor(private http: HttpClient) { }
 
-  buscarTodasCartas(): Observable<ResponseCarta> {
+  public buscarTodasCartas(): Observable<ResponseCarta> {
     return this.get();
   }
 
-  buscarTodasCartasPaginado(pagina: number, tamanhoPagina: number): Observable<ResponseCarta> {
+  public buscarTodasCartasPaginado(pagina: number, tamanhoPagina: number): Observable<ResponseCarta> {
     const QUERY_STRING = `?page=${pagina}&pageSize=${tamanhoPagina}`;
     return this.get(QUERY_STRING);
   }
 
-  buscarTodasCartasPaginadoPorNome(pagina: number, tamanhoPagina: number, filtro: string): Observable<ResponseCarta> {
+  public buscarTodasCartasPaginadoPorNome(pagina: number, tamanhoPagina: number, filtro: string): Observable<ResponseCarta> {
     const QUERY_STRING = `?page=${pagina}&pageSize=${tamanhoPagina}&name=${filtro}`;
     return this.get(QUERY_STRING);
   }

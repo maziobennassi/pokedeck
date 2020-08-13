@@ -17,7 +17,6 @@ import { ModalConfirmacaoModule } from '../../shared/modal-confirmacao/modal-con
 import { ListarDecksRoutingModule } from './listar-decks-routing.module';
 import { ListarDecksComponent } from './listar-decks.component';
 
-
 @NgModule({
   declarations: [
     ListarDecksComponent

@@ -6,12 +6,10 @@ import { Carta } from 'src/app/models/carta';
   templateUrl: './exibicao-cartas.component.html'
 })
 export class ExibicaoCartasComponent implements OnInit {
-
   @Input() carta: Carta;
 
   constructor() { }
 
   ngOnInit(): void {
   }
-
 }

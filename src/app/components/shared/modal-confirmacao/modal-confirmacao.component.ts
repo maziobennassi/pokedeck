@@ -5,10 +5,8 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './modal-confirmacao.component.html'
 })
 export class ModalConfirmacaoComponent implements OnInit {
-
   constructor() { }
 
   ngOnInit(): void {
   }
-
 }

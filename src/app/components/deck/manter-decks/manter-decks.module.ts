@@ -15,7 +15,6 @@ import { ModalConfirmacaoModule } from '../../shared/modal-confirmacao/modal-con
 import { ManterDecksRoutingModule } from './manter-decks-routing.module';
 import { ManterDecksComponent } from './manter-decks.component';
 
-
 @NgModule({
   declarations: [
     ManterDecksComponent

@@ -13,7 +13,6 @@ import { ModalConfirmacaoModule } from '../../shared/modal-confirmacao/modal-con
 import { VisualizarDecksRoutingModule } from './visualizar-decks-routing.module';
 import { VisualizarDecksComponent } from './visualizar-decks.component';
 
-
 @NgModule({
   declarations: [
     VisualizarDecksComponent
