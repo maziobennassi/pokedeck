@@ -31,9 +31,9 @@ export class ApiPokemonService {
     return this.get(API_QUERY);
   }
 
-  private get(API_QUERY: string = ""): Observable<ResponseCarta> {
+  private get(queryString: string = ""): Observable<ResponseCarta> {
     const API_URL = this.baseUrlConsultar;
-    return this.http.get<ResponseCarta>(`${API_URL}${API_QUERY}`).pipe(catchError(this.handleError));
+    return this.http.get<ResponseCarta>(`${API_URL}${queryString}`).pipe(catchError(this.handleError));
   }
 
   private handleError(error: Response | any) {
