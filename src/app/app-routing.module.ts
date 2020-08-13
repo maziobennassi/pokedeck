@@ -1,16 +1,28 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { ListarDecksComponent } from './components/deck/listar-decks/listar-decks.component';
-import { ManterDecksComponent } from './components/deck/manter-decks/manter-decks.component';
-import { VisualizarDecksComponent } from './components/deck/visualizar-decks/visualizar-decks.component';
-
 const routes: Routes = [
   { path: '',  redirectTo: 'decks', pathMatch: 'full' },
-  { path: 'decks' , component: ListarDecksComponent },
-  { path: 'cadastrar-deck' , component: ManterDecksComponent },
-  { path: 'editar-deck/:id' , component: ManterDecksComponent },
-  { path: 'visualizar-deck/:id' , component: VisualizarDecksComponent }
+  {
+    path: 'decks',
+    loadChildren: () =>
+          import('./components/deck/listar-decks/listar-decks.module').then(m => m.ListarDecksModule)
+  },
+  {
+    path: 'cadastrar-deck',
+    loadChildren: () =>
+          import('./components/deck/manter-decks/manter-decks.module').then(m => m.ManterDecksModule)
+  },
+  {
+    path: 'editar-deck/:id',
+    loadChildren: () =>
+          import('./components/deck/manter-decks/manter-decks.module').then(m => m.ManterDecksModule)
+  },
+  {
+    path: 'visualizar-deck/:id',
+    loadChildren: () =>
+          import('./components/deck/visualizar-decks/visualizar-decks.module').then(m => m.VisualizarDecksModule)
+  }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

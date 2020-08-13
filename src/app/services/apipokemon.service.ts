@@ -11,34 +11,30 @@ import { ResponseCarta } from '../models/response-carta';
 })
 
 export class ApiPokemonService {
-
-  private baseUrl: string = environment.apiPokemon;
+  private baseUrlConsultar: string = environment.apiPokemon + '/cards';
 
   constructor(private http: HttpClient) { }
 
-  buscarTodasCartas(): Observable<ResponseCarta> {
-    const API_URL = `${this.baseUrl}/cards`;
-    return this.http.get<ResponseCarta>(`${API_URL}`).pipe(catchError(this.handleError));
+  public buscarTodasCartas(): Observable<ResponseCarta> {
+    return this.get();
   }
 
-  buscarTodasCartasPaginado(pagina: number, tamanhoPagina: number): Observable<ResponseCarta> {
-    const API_URL = `${this.baseUrl}/cards`;
-    const API_QUERY = `?page=${pagina}&pageSize=${tamanhoPagina}`;
-    return this.http.get<ResponseCarta>(`${API_URL}${API_QUERY}`).pipe(catchError(this.handleError));
+  public buscarTodasCartasPaginado(pagina: number, tamanhoPagina: number): Observable<ResponseCarta> {
+    const QUERY_STRING = `?page=${pagina}&pageSize=${tamanhoPagina}`;
+    return this.get(QUERY_STRING);
   }
 
-  buscarTodasCartasPaginadoPorNome(pagina: number, tamanhoPagina: number, filtro: string): Observable<ResponseCarta> {
-    const API_URL = `${this.baseUrl}/cards`;
-    const API_QUERY = `?page=${pagina}&pageSize=${tamanhoPagina}&name=${filtro}`;
-    return this.http.get<ResponseCarta>(`${API_URL}${API_QUERY}`).pipe(catchError(this.handleError));
+  public buscarTodasCartasPaginadoPorNome(pagina: number, tamanhoPagina: number, filtro: string): Observable<ResponseCarta> {
+    const QUERY_STRING = `?page=${pagina}&pageSize=${tamanhoPagina}&name=${filtro}`;
+    return this.get(QUERY_STRING);
   }
 
-  buscarCarta(id: string): Observable<ResponseCarta> {
-    const API_URL = `${this.baseUrl}/cards/${id}`;
-    return this.http.get<ResponseCarta>(`${API_URL}`).pipe(catchError(this.handleError));
+  private get(queryString: string = ""): Observable<ResponseCarta> {
+    const API_URL = this.baseUrlConsultar;
+    return this.http.get<ResponseCarta>(`${API_URL}${queryString}`).pipe(catchError(this.handleError));
   }
 
-  protected handleError(error: Response | any) {
+  private handleError(error: Response | any) {
     return Observable.throw(error);
   }
 }

@@ -10,42 +10,42 @@ export class DeckService {
 
   constructor() { }
 
-  buscarTodos(): Deck[] {
+  public buscarTodos(): Deck[] {
     const decks: Deck[] = JSON.parse(localStorage.getItem(this.storageDeck));
     return decks ?? [];
   }
 
-  buscarPorId(id: number): Deck {
+  public buscarPorId(id: number): Deck {
     const decks: Deck[] = this.buscarTodos();
     const deck: Deck = decks.find(x => x.id == id);
     return deck;
   }
 
-  salvar(deck: Deck): void {
+  public salvar(deck: Deck): void {
     deck.id = this.buscarProximoIdDB();
     this.adicionarAtualizarLocalStorage(deck);
   }
 
-  editar(deck: Deck): void {
+  public editar(deck: Deck): void {
     const deckDB: Deck = this.buscarPorId(deck.id);
     this.remover(deckDB);
     this.adicionarAtualizarLocalStorage(deck);
   }
 
-  remover(deck: Deck): void {
+  public remover(deck: Deck): void {
     const decks: Deck[] = this.buscarTodos();
     const index = decks.indexOf(deck);
     decks.splice(index, 1);
     localStorage.setItem(this.storageDeck, JSON.stringify(decks));
   }
 
-  adicionarAtualizarLocalStorage(deck: Deck) {
+  private adicionarAtualizarLocalStorage(deck: Deck) {
     const decks: Deck[] = this.buscarTodos();
     decks.push(deck);
     localStorage.setItem(this.storageDeck, JSON.stringify(decks));
   }
 
-  buscarProximoIdDB(): number {
+  private buscarProximoIdDB(): number {
     const decks: Deck[] = this.buscarTodos();
     const ids: number[] = decks.map(x => x.id);
     const maiorId = Math.max.apply(Math, ids); 

@@ -3,16 +3,13 @@ import { Carta } from 'src/app/models/carta';
 
 @Component({
   selector: 'exibicao-cartas',
-  templateUrl: './exibicao-cartas.component.html',
-  styleUrls: ['./exibicao-cartas.component.css']
+  templateUrl: './exibicao-cartas.component.html'
 })
 export class ExibicaoCartasComponent implements OnInit {
-
   @Input() carta: Carta;
 
   constructor() { }
 
   ngOnInit(): void {
   }
-
 }
