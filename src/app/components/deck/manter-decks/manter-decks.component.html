@@ -5,7 +5,7 @@
             <input matInput (keyup)="filtrarCartas($event.target.value)">
         </mat-form-field>
 
-        <div *ngFor="let carta of cartas;">
+        <div *ngFor="let carta of cartas;" [ngClass]="cartaSelecionada(carta)">
             <exibicao-cartas [carta]="carta" (click)="adicionarCarta(carta)"></exibicao-cartas>
         </div>
     </div>

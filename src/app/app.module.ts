@@ -8,10 +8,6 @@ import { AppComponent } from './app.component';
 import { ListarDecksModule } from './components/deck/listar-decks/listar-decks.module';
 import { LoaderModule } from './components/shared/loader/loader.module';
 import { LoaderInterceptor } from './interceptors/loader-interceptor.service';
-import { ApiPokemonService } from './services/apipokemon.service';
-import { DeckService } from './services/deck.service';
-import { LoaderService } from './services/loader.service';
-import { NotificationService } from './services/notification.service';
 
 @NgModule({
   declarations: [
@@ -26,10 +22,6 @@ import { NotificationService } from './services/notification.service';
     ListarDecksModule
   ],
   providers: [
-    ApiPokemonService,
-    DeckService,
-    LoaderService,
-    NotificationService,
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]

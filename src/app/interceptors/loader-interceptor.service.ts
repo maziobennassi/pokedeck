@@ -4,7 +4,9 @@ import { Observable } from 'rxjs';
 
 import { LoaderService } from '../services/loader.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class LoaderInterceptor implements HttpInterceptor {
   private requests: HttpRequest<any>[] = [];
 

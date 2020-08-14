@@ -191,4 +191,8 @@ export class ManterDecksComponent implements OnInit, OnDestroy {
       return false;
     }
   }
+
+  public cartaSelecionada(carta: Carta): string {
+    return this.verificarCartaAdicionada(carta) ? "carta-selecionada" : ""; 
+  }
 }
