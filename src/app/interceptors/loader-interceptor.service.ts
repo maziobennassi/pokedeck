@@ -10,7 +10,7 @@ export class LoaderInterceptor implements HttpInterceptor {
 
   constructor(private loaderService: LoaderService) { }
 
-  public removeRequest(req: HttpRequest<any>) {
+  removeRequest(req: HttpRequest<any>) {
     const i = this.requests.indexOf(req);
     if (i >= 0) {
       this.requests.splice(i, 1);
@@ -18,7 +18,7 @@ export class LoaderInterceptor implements HttpInterceptor {
     this.loaderService.isLoading.next(this.requests.length > 0);
   }
 
-  public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this.requests.push(req);
 
     this.loaderService.isLoading.next(true);

@@ -18,10 +18,7 @@ import { LoaderComponent } from './loader.component';
     CommonModule,
     MatProgressSpinnerModule
   ],
-  providers: [
-    LoaderService,
-    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
-  ],
+  providers: [],
   bootstrap: [LoaderComponent]
 })
 export class LoaderModule { }

@@ -8,6 +8,7 @@ import { DeckService } from 'src/app/services/deck.service';
 import { NotificationService } from 'src/app/services/notification.service';
 
 import { ModalConfirmacaoComponent } from '../../shared/modal-confirmacao/modal-confirmacao.component';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'manter-decks',
@@ -46,9 +47,14 @@ export class ManterDecksComponent implements OnInit, OnDestroy {
   }
 
   public adicionarCarta(novaCarta: Carta): void {
-    if (this.verificarCartaAdicionada(novaCarta) && this.validarQuantidadeMaximaCartasDeck()) {
-      novaCarta.quantidade = 1;
-      this.deck.cartas.push(novaCarta);
+    if (this.validarQuantidadeMaximaCartasPorNome(novaCarta.name) && this.validarQuantidadeMaximaCartasDeck()) {
+      if (this.verificarCartaAdicionada(novaCarta)) {
+        const cartaExistente = this.deck.cartas.find(carta => carta.id == novaCarta.id);
+        cartaExistente.quantidade += 1;
+      } else {
+        novaCarta.quantidade = 1;
+        this.deck.cartas.push(novaCarta);
+      }
     }
   }
 
@@ -83,7 +89,7 @@ export class ManterDecksComponent implements OnInit, OnDestroy {
   }
 
   public aumentarQuantidade(carta: Carta): void {
-    if (carta.quantidade < 4 && this.validarQuantidadeMaximaCartasDeck()) {
+    if (this.retornarQuantidadeCartasPorNome(carta.name) < 4 && this.validarQuantidadeMaximaCartasDeck()) {
       carta.quantidade += 1;
     }
   }
@@ -134,6 +140,11 @@ export class ManterDecksComponent implements OnInit, OnDestroy {
     return this.deck.cartas.reduce((anterior, atual) => +anterior + +atual.quantidade, 0);
   }
 
+  public retornarQuantidadeCartasPorNome(nome: string): number {
+    const cartas = this.deck.cartas.filter(carta => carta.name === nome);
+    return cartas.map(carta => carta.quantidade).reduce((anterior, atual) => +anterior + +atual, 0);
+  }
+
   public validarDeck(): boolean {
     return this.validarQuantidadeCartasDeck() && this.validarNomeDeck();
   }
@@ -144,6 +155,16 @@ export class ManterDecksComponent implements OnInit, OnDestroy {
       return true;
     } else {
       this.notificationService.mensagemAlerta("O deck atingiu o limite máximo de 60 cartas.");
+      return false;
+    }
+  }
+
+  private validarQuantidadeMaximaCartasPorNome(nome: string): boolean {
+    const totalCartas = this.retornarQuantidadeCartasPorNome(nome);
+    if (totalCartas < 4) {
+      return true;
+    } else {
+      this.notificationService.mensagemAlerta("O deck atingiu o limite máximo de 4 cartas com o mesmo nome.");
       return false;
     }
   }
@@ -159,12 +180,7 @@ export class ManterDecksComponent implements OnInit, OnDestroy {
   }
 
   private verificarCartaAdicionada(novaCarta: Carta): boolean {
-    if (!this.deck.cartas.find(carta => carta.id === novaCarta.id)) {
-      return true;
-    } else {
-      this.notificationService.mensagemAlerta("Esta carta já foi adicionada ao deck.");
-      return false;
-    }
+    return !isNullOrUndefined(this.deck.cartas.find(carta => carta.id === novaCarta.id));
   }
 
   private validarNomeDeck() {
