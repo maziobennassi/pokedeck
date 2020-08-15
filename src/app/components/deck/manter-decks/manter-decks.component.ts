@@ -49,7 +49,7 @@ export class ManterDecksComponent implements OnInit, OnDestroy {
   public adicionarCarta(novaCarta: Carta): void {
     if (this.validarQuantidadeMaximaCartasPorNome(novaCarta.name) && this.validarQuantidadeMaximaCartasDeck()) {
       if (this.verificarCartaAdicionada(novaCarta)) {
-        const cartaExistente = this.deck.cartas.find(carta => carta.id == novaCarta.id);
+        const cartaExistente = this.deck.cartas.find(carta => carta.id === novaCarta.id);
         cartaExistente.quantidade += 1;
       } else {
         novaCarta.quantidade = 1;

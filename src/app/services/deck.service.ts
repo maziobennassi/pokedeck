@@ -22,7 +22,7 @@ export class DeckService {
   }
 
   public salvar(deck: Deck): void {
-    deck.id = this.buscarProximoIdDB();
+    deck.id = this.buscarProximoIdLS();
     this.adicionarAtualizarLocalStorage(deck);
   }
 
@@ -45,10 +45,10 @@ export class DeckService {
     localStorage.setItem(this.storageDeck, JSON.stringify(decks));
   }
 
-  private buscarProximoIdDB(): number {
+  private buscarProximoIdLS(): number {
     const decks: Deck[] = this.buscarTodos();
     const ids: number[] = decks.map(x => x.id);
     const maiorId = Math.max.apply(Math, ids); 
-    return ids.length == 0 ? 1 : maiorId + 1;
+    return ids.length === 0 ? 1 : maiorId + 1;
   }
 }
