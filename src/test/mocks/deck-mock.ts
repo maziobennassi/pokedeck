@@ -14,9 +14,4 @@ export class DeckMock {
     deck.quantidadeCartas = quantidade;
     return deck;
   }
-
-  public static recuperarDeckAdicionadoLS(deck: Deck): Deck {
-    const decks: Deck[] = JSON.parse(localStorage.getItem("decks"));
-    return decks.find(x => x.nome === deck.nome);
-  }
 }
