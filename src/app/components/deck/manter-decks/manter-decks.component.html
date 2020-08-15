@@ -5,7 +5,7 @@
             <input matInput (keyup)="filtrarCartas($event.target.value)">
         </mat-form-field>
 
-        <div *ngFor="let carta of cartas;">
+        <div *ngFor="let carta of cartas;" [ngClass]="cartaSelecionada(carta)">
             <exibicao-cartas [carta]="carta" (click)="adicionarCarta(carta)"></exibicao-cartas>
         </div>
     </div>
@@ -30,10 +30,10 @@
                             </button> {{carta.name}}
 
                             <div class="botes-quantidade">
-                                <button type="button" mat-mini-fab color="primary" [disabled]="carta.quantidade == 4 || retornarQuantidadeTotalCartas() == 60" (click)="aumentarQuantidade(carta)">
+                                <button type="button" mat-mini-fab color="primary" [disabled]="retornarQuantidadeCartasPorNome(carta.name) === 4 || retornarQuantidadeTotalCartas() === 60" (click)="aumentarQuantidade(carta)">
                                     <mat-icon>add</mat-icon>
                                 </button>
-                                <button type="button" mat-mini-fab color="warn" [disabled]="carta.quantidade == 1" (click)="diminuirQuantidade(carta)">
+                                <button type="button" mat-mini-fab color="warn" [disabled]="carta.quantidade === 1" (click)="diminuirQuantidade(carta)">
                                     <mat-icon>remove</mat-icon>
                                 </button>
                                 <button type="button" mat-mini-fab color="warn" (click)="confirmacaoRemoverCarta(carta)">

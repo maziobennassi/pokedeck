@@ -6,7 +6,7 @@
 }
 
 .container-cartas {
-    width: 80%;
+    width: 70%;
     display: flex;
     flex-wrap: wrap;
     float: left;
@@ -17,11 +17,11 @@
 }
 
 .container-botoes button {
-    margin-left: 10px;
+    margin-left: 5px;
 }
 
 .container-dados-deck {
-    width: 20%;
+    width: 30%;
     max-height: 400px;
     flex-wrap: nowrap;
     float: right;
@@ -40,9 +40,15 @@
 }
 
 .botes-quantidade button {
-    margin-left: 10px;
+    margin-left: 3px;
 }
 
 .detalhes-carta {
     margin-bottom: 10px;
+}
+
+.carta-selecionada {
+    border: 1px solid #333;
+    margin: 2px;
+    box-shadow: 0px 12px 22px 1px #333;
 }
