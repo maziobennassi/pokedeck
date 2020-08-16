@@ -19,6 +19,7 @@ import { LoaderModule } from '../../shared/loader/loader.module';
 import { ModalConfirmacaoModule } from '../../shared/modal-confirmacao/modal-confirmacao.module';
 import { ListarDecksRoutingModule } from './listar-decks-routing.module';
 import { ListarDecksComponent } from './listar-decks.component';
+import { DeckMock } from 'src/test/mocks/deck-mock';
 
 describe('ListarDecksComponent', () => {
   let component: ListarDecksComponent;
@@ -55,9 +56,22 @@ describe('ListarDecksComponent', () => {
     fixture = TestBed.createComponent(ListarDecksComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    component.dataSource.data = DeckMock.retornarDecks();
+  });
+
+  afterEach(() => {
+    component = null;
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('método quantidadeCartasPorSupertype deve retornar a quantidade de cartas com o supertype Pokémon', () => {
+    const spy = jest.spyOn(component, 'filtrarTabela');
+    component.filtrarTabela("Teste");
+
+    expect(component.dataSource.filteredData.length).toEqual(2);
+    expect(spy).toHaveBeenCalled();
   });
 });

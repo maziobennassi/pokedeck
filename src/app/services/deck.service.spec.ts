@@ -12,11 +12,7 @@ describe('DeckService', () => {
   let deck: Deck = new Deck();
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule
-      ]
-    });
+    TestBed.configureTestingModule({});
     injector = getTestBed();
     service = TestBed.get(DeckService);
     decks = DeckMock.retornarDecks();
@@ -28,6 +24,10 @@ describe('DeckService', () => {
     deck = new Deck();
     service = null;
     localStorage.clear();
+  });
+
+  it('should create', () => {
+    expect(service).toBeTruthy();
   });
 
   it('método buscarTodos deve retornar uma lista de decks', () => {

@@ -3,7 +3,7 @@ import { CartaMock } from './carta-mock';
 
 export class DeckMock {
   public static retornarDecks(): Deck[] {
-    const cartas = [this.retornarDeck("Deck 1", 50), this.retornarDeck("Deck 2", 30), this.retornarDeck("Deck 3", 40), this.retornarDeck("Deck 4", 60)];
+    const cartas = [this.retornarDeck("Deck teste", 50), this.retornarDeck("Teste 2", 30), this.retornarDeck("Deck 3", 40), this.retornarDeck("Deck final", 60)];
     return cartas;
   }
 

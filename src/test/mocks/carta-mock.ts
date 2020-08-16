@@ -24,4 +24,14 @@ export class CartaMock {
         carta.quantidade = quantidade;
         return carta;
     }
+
+    public static retornarTiposEnergia(): string[] {
+        let todosTiposEnergia: string[];
+        CartaMock.retornarCartas().map(carta => carta.types).forEach(tipos => tipos?.forEach(tipo => todosTiposEnergia.push(tipo)));
+        return todosTiposEnergia.filter((valor, index, array) => array.indexOf(valor) === index);
+    }
+
+    public static retornarTipos(): string[] {
+        return CartaMock.retornarCartas().map(carta => carta.supertype).filter((valor, index, array) => array.indexOf(valor) === index);
+    }
 }

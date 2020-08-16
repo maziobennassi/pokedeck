@@ -19,8 +19,8 @@ export class ManterDecksComponent implements OnInit, OnDestroy {
   public deck: Deck = new Deck();
   public cartas: Carta[];
   public pagina: number = 1;
+  public pesquisa: string = "";
   private quantidadePagina: number = 20;
-  private pesquisa: string = "";
   private dialogSub: any;
   private apiPokemonSub: any;
 
@@ -100,8 +100,7 @@ export class ManterDecksComponent implements OnInit, OnDestroy {
     }
   }
 
-  public filtrarCartas(pesquisa: string): void {
-    this.pesquisa = pesquisa;
+  public filtrarCartas(): void {
     this.buscarPaginadoFiltrado();
   }
 

@@ -2,7 +2,7 @@
     <div class="container-cartas">
         <mat-form-field class="filtro">
             <mat-label>Pesquisa</mat-label>
-            <input matInput (keyup)="filtrarCartas($event.target.value)">
+            <input matInput [(ngModel)]="pesquisa" (keyup)="filtrarCartas()">
         </mat-form-field>
 
         <div *ngFor="let carta of cartas;" [ngClass]="cartaSelecionada(carta)">
@@ -21,7 +21,7 @@
 
                     <button type="submit" [disabled]="!deck.nome" class="campos-container" mat-flat-button color="primary">Salvar</button>
 
-                    <h2 *ngIf="deck.cartas?.length > 0">Cartas:</h2>
+                    <h2 *ngIf="deck.cartas?.length > 0">Cartas ({{retornarQuantidadeTotalCartas()}}):</h2>
 
                     <div *ngFor="let carta of deck.cartas">
                         <mat-card class="detalhes-carta">
