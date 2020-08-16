@@ -28,7 +28,7 @@ export class VisualizarDecksComponent implements OnInit {
   }
 
   public quantidadeCartasPorSupertype(tipo: string): number {
-    return this.deck.cartas.filter(carta => carta.supertype === tipo).length;
+    return this.deck.cartas.filter(carta => carta.supertype === tipo).reduce((anterior, atual) => +anterior + +atual.quantidade, 0);
   }
 
   public retornarCaminhoImagem(tipoEnergia: string): string {

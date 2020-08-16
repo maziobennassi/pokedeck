@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Deck } from 'src/app/models/deck';
@@ -25,13 +25,23 @@ export class ListarDecksComponent implements OnInit, OnDestroy {
 
   constructor(private deckService: DeckService,
               private notificationService: NotificationService,
-              private dialog: MatDialog) { }
+              private dialog: MatDialog,
+              private mat: MatPaginatorIntl) { }
 
   ngOnInit(): void {
     this.decks = this.deckService.buscarTodos();
     this.dataSource.data = this.decks;
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.traducaoPaginator();
+  }
+
+  traducaoPaginator() {
+    this.mat.firstPageLabel = "Primeira página";
+    this.mat.itemsPerPageLabel = "Itens por página";
+    this.mat.lastPageLabel = "Última página";
+    this.mat.nextPageLabel = "Próxima página";
+    this.mat.previousPageLabel = "Página anterior";
   }
 
   ngOnDestroy(): void {
