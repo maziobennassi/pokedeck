@@ -16,7 +16,7 @@ Rode `ng build` para compilar o projeto. Os artefatos da compilação estarão a
 
 ## Running unit tests
 
-Rode `ngx jest` para executar os testes unitários desenvolvidos com [Jest](https://github.com/facebook/jest) version 26.4.0.
+Rode `npx jest` para executar os testes unitários desenvolvidos com [Jest](https://github.com/facebook/jest) version 26.4.0.
 
 ## Running end-to-end tests
 
