@@ -9,25 +9,25 @@ describe('DeckService', () => {
   let injector: TestBed;
   let service: DeckService;
   let decks: Deck[] = [];
-  let deck: Deck = new Deck();
+  let deckAdicionar: Deck = new Deck();
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule
-      ]
-    });
+    TestBed.configureTestingModule({});
     injector = getTestBed();
     service = TestBed.get(DeckService);
     decks = DeckMock.retornarDecks();
-    deck = DeckMock.retornarDeck("teste", 40);
+    deckAdicionar = DeckMock.retornarDeck(54, "teste", 40);
   });
 
   afterEach(() => {
     decks = [];
-    deck = new Deck();
+    deckAdicionar = new Deck();
     service = null;
     localStorage.clear();
+  });
+
+  it('should create', () => {
+    expect(service).toBeTruthy();
   });
 
   it('método buscarTodos deve retornar uma lista de decks', () => {
@@ -47,9 +47,9 @@ describe('DeckService', () => {
   it('método salvar deve adicionar um item no LS', () => {
     const spy = jest.spyOn(service, 'salvar');
     const spyLs = jest.spyOn(localStorage, 'setItem');
-    service.salvar(deck);
+    service.salvar(deckAdicionar);
 
-    expect(JSON.parse(localStorage.getItem("decks")).find(x => x.nome === deck.nome) != null).toBe(true);
+    expect(JSON.parse(localStorage.getItem("decks")).find(deck => deck.nome === deckAdicionar.nome) != null).toBe(true);
     expect(spy).toHaveBeenCalled();
     expect(spyLs).toHaveBeenCalled();
   });
@@ -57,10 +57,10 @@ describe('DeckService', () => {
   it('método editar deve alterar um item no LS', () => {
     const spy = jest.spyOn(service, 'editar');
     const spyLs = jest.spyOn(localStorage, 'setItem');
-    deck.nome = "teste editar";
-    service.editar(deck);
+    deckAdicionar.nome = "teste editar";
+    service.editar(deckAdicionar);
 
-    expect(JSON.parse(localStorage.getItem("decks")).find(x => x.nome === deck.nome) != null).toBe(true);
+    expect(JSON.parse(localStorage.getItem("decks")).find(deck => deck.nome === deckAdicionar.nome) != null).toBe(true);
     expect(spy).toHaveBeenCalled();
     expect(spyLs).toHaveBeenCalled();
   });
@@ -68,8 +68,8 @@ describe('DeckService', () => {
   it('método remover deve remover um item do LS', () => {
     const spy = jest.spyOn(service, 'remover');
     const spyLs = jest.spyOn(localStorage, 'setItem');
-    deck.nome = "teste editar";
-    service.remover(deck);
+    deckAdicionar.nome = "teste editar";
+    service.remover(deckAdicionar);
 
     expect(spy).toHaveBeenCalled();
     expect(spyLs).toHaveBeenCalled();

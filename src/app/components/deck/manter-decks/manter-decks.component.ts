@@ -19,8 +19,8 @@ export class ManterDecksComponent implements OnInit, OnDestroy {
   public deck: Deck = new Deck();
   public cartas: Carta[];
   public pagina: number = 1;
+  public pesquisa: string = "";
   private quantidadePagina: number = 20;
-  private pesquisa: string = "";
   private dialogSub: any;
   private apiPokemonSub: any;
 
@@ -59,13 +59,13 @@ export class ManterDecksComponent implements OnInit, OnDestroy {
   }
 
   public proximaPagina(): void {
-    this.pagina += 1;
-    this.consultar();
+      this.pagina += 1;
+      this.consultar();
   }
 
   public paginaAnterior(): void {
-    this.pagina -= 1;
-    this.consultar();
+      this.pagina -= 1;
+      this.consultar();
   }
 
   private consultar(): void {
@@ -100,8 +100,7 @@ export class ManterDecksComponent implements OnInit, OnDestroy {
     }
   }
 
-  public filtrarCartas(pesquisa: string): void {
-    this.pesquisa = pesquisa;
+  public filtrarCartas(): void {
     this.buscarPaginadoFiltrado();
   }
 
@@ -109,14 +108,22 @@ export class ManterDecksComponent implements OnInit, OnDestroy {
     if (this.validarDeck()) {
       this.deck.quantidadeCartas = this.retornarQuantidadeTotalCartas();
       if (this.deck.id > 0) {
-        this.deckService.editar(this.deck);
-        this.notificationService.mensagemSucesso("Deck editado com sucesso!");
+        this.editarDeck();
       } else {
-        this.deckService.salvar(this.deck);
-        this.notificationService.mensagemSucesso("Deck cadastrado com sucesso!");
+        this.adicionarDeck();
       }
       this.router.navigate(['decks']);
     }
+  }
+
+  public adicionarDeck(): void {
+    this.deckService.salvar(this.deck);
+    this.notificationService.mensagemSucesso("Deck cadastrado com sucesso!");
+  }
+
+  public editarDeck(): void {
+    this.deckService.editar(this.deck);
+    this.notificationService.mensagemSucesso("Deck editado com sucesso!");
   }
 
   public confirmacaoRemoverCarta(carta: Carta): void {

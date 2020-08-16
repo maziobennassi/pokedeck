@@ -13,6 +13,8 @@ import { LoaderModule } from '../../shared/loader/loader.module';
 import { ModalConfirmacaoModule } from '../../shared/modal-confirmacao/modal-confirmacao.module';
 import { VisualizarDecksRoutingModule } from './visualizar-decks-routing.module';
 import { VisualizarDecksComponent } from './visualizar-decks.component';
+import { CartaMock } from 'src/test/mocks/carta-mock';
+import { MatCardModule } from '@angular/material/card';
 
 describe('VisualizarDecksComponent', () => {
   let component: VisualizarDecksComponent;
@@ -29,6 +31,7 @@ describe('VisualizarDecksComponent', () => {
         MatInputModule,
         MatIconModule,
         MatButtonModule,
+        MatCardModule,
         RouterModule,
         ExibicaoCartaModule,
         LoaderModule,
@@ -43,9 +46,44 @@ describe('VisualizarDecksComponent', () => {
     fixture = TestBed.createComponent(VisualizarDecksComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    component.tipos = CartaMock.retornarTipos();
+    component.tiposEnergia = CartaMock.retornarTipos();
+  });
+
+  afterEach(() => {
+    component = null;
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('método quantidadeCartasPorSupertype deve retornar a quantidade de cartas com o supertype Pokémon', () => {
+    const spy = jest.spyOn(component, 'quantidadeCartasPorSupertype');
+
+    expect(component.quantidadeCartasPorSupertype("Pokémon")).toEqual(0);
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('método quantidadeCartasPorSupertype deve retornar a quantidade de cartas com o supertype Trainer', () => {
+    const spy = jest.spyOn(component, 'quantidadeCartasPorSupertype');
+    
+    expect(component.quantidadeCartasPorSupertype("Trainer")).toEqual(0);
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('método quantidadeCartasPorSupertype deve retornar a quantidade de cartas com o supertype Trainer', () => {
+    const spy = jest.spyOn(component, 'quantidadeCartasPorSupertype');
+
+    expect(component.quantidadeCartasPorSupertype("Energy")).toEqual(0);
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('método retornarCaminhoImagem deve retornar o caminho da imagem da energia informada', () => {
+    const tipoEnergia = "Fire";
+    const spy = jest.spyOn(component, 'retornarCaminhoImagem');
+
+    expect(component.retornarCaminhoImagem(tipoEnergia)).toEqual(`../../.../../../../assets/images/${tipoEnergia.toLowerCase()}.png`);
+    expect(spy).toHaveBeenCalled();
   });
 });

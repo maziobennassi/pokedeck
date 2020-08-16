@@ -35,6 +35,10 @@ describe('ApipokemonService', () => {
     httpMock.verify();
   });
 
+  it('should create', () => {
+    expect(service).toBeTruthy();
+  });
+
   it('método buscarTodasCartas deve retornar uma lista de cartas', () => {
     service.buscarTodasCartas()
       .pipe(

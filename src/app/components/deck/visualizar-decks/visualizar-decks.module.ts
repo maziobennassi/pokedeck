@@ -12,6 +12,7 @@ import { LoaderModule } from '../../shared/loader/loader.module';
 import { ModalConfirmacaoModule } from '../../shared/modal-confirmacao/modal-confirmacao.module';
 import { VisualizarDecksRoutingModule } from './visualizar-decks-routing.module';
 import { VisualizarDecksComponent } from './visualizar-decks.component';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { VisualizarDecksComponent } from './visualizar-decks.component';
     MatInputModule,
     MatIconModule,
     MatButtonModule,
+    MatCardModule,
     RouterModule,
     ExibicaoCartaModule,
     LoaderModule,
