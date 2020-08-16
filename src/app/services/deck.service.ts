@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Deck } from '../models/deck';
+import { DeclareFunctionStmt } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -32,11 +33,13 @@ export class DeckService {
     this.adicionarAtualizarLocalStorage(deck);
   }
 
-  public remover(deck: Deck): void {
+  public remover(deckRemover: Deck): void {
     const decks: Deck[] = this.buscarTodos();
-    const index = decks.indexOf(deck);
-    decks.splice(index, 1);
-    localStorage.setItem(this.storageDeck, JSON.stringify(decks));
+    const index = decks.findIndex(deck => deck.id == deckRemover.id);
+    if (index >= 0) {
+      decks.splice(index, 1);
+      localStorage.setItem(this.storageDeck, JSON.stringify(decks));
+    }
   }
 
   private adicionarAtualizarLocalStorage(deck: Deck) {
