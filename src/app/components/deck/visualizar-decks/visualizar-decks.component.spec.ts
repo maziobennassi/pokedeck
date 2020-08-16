@@ -67,7 +67,7 @@ describe('VisualizarDecksComponent', () => {
 
   it('método quantidadeCartasPorSupertype deve retornar a quantidade de cartas com o supertype Trainer', () => {
     const spy = jest.spyOn(component, 'quantidadeCartasPorSupertype');
-
+    
     expect(component.quantidadeCartasPorSupertype("Trainer")).toEqual(0);
     expect(spy).toHaveBeenCalled();
   });
