@@ -53,3 +53,12 @@
     margin: 2px;
     box-shadow: 0px 12px 22px 1px #333;
 }
+
+.container-botoes-form {
+    width: 100%;
+}
+
+.container-botoes-form button {
+    width: 49%;
+    margin-left: 5px;
+}

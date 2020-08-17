@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { LoaderService } from '../services/loader.service';
+import { NotificationService } from '../services/notification.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,8 @@ import { LoaderService } from '../services/loader.service';
 export class LoaderInterceptor implements HttpInterceptor {
   private requests: HttpRequest<any>[] = [];
 
-  constructor(private loaderService: LoaderService) { }
+  constructor(private loaderService: LoaderService, 
+              private notificationService: NotificationService) { }
 
   removeRequest(req: HttpRequest<any>) {
     const i = this.requests.indexOf(req);
@@ -34,7 +36,7 @@ export class LoaderInterceptor implements HttpInterceptor {
             }
           },
           err => {
-            alert('error' + err);
+            this.notificationService.mensagemErro('Erro: ' + err);
             this.removeRequest(req);
             observer.error(err);
           },

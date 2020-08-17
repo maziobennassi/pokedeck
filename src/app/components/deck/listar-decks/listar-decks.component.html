@@ -1,6 +1,6 @@
 <div class="mat-elevation-z8 container">
     <div>
-        <button mat-flat-button color="primary" [routerLink]="['/cadastrar-deck']">Cadastrar Deck</button>
+        <button mat-raised-button color="primary" [routerLink]="['/cadastrar-deck']">Cadastrar Deck</button>
 
         <mat-form-field style="float: right;">
             <mat-label>Filtro</mat-label>
@@ -14,7 +14,7 @@
             <td mat-cell *matCellDef="let deck"> {{deck.nome}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="quantidadeCartas" matSort>
+        <ng-container matColumnDef="quantidadeCartas">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantidade de Cartas </th>
             <td mat-cell *matCellDef="let deck"> {{deck.quantidadeCartas}} </td>
         </ng-container>

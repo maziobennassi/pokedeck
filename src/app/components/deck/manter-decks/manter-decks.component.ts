@@ -130,7 +130,6 @@ export class ManterDecksComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(ModalConfirmacaoComponent);
 
     this.dialogSub = dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       if (result) {
         this.removerCarta(carta);
       }
