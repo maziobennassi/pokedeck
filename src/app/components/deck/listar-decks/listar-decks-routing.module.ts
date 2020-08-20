@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ListarDecksComponent } from './listar-decks.component';
 
 const routes: Routes = [
-  { path: '' , component: ListarDecksComponent }
+  { path: 'decks' , component: ListarDecksComponent }
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],

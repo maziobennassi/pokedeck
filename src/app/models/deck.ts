@@ -1,8 +1,8 @@
 import { Carta } from './carta';
 
-export class Deck {
-    id: number = 0;
-    nome: string = "";
-    cartas: Carta[] = [];
+export interface Deck {
+    id: number;
+    nome: string;
+    cartas: Carta[];
     quantidadeCartas: number;
 }

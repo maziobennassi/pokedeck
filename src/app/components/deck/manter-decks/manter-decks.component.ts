@@ -16,7 +16,7 @@ import { isNullOrUndefined } from 'util';
   styleUrls: ['./manter-decks.component.css']
 })
 export class ManterDecksComponent implements OnInit, OnDestroy {
-  public deck: Deck = new Deck();
+  public deck: Deck = Object.assign({cartas: []});
   public cartas: Carta[];
   public pagina: number = 1;
   public pesquisa: string = "";

@@ -38,7 +38,7 @@ export class CartaMock {
     }
 
     public static retornarCarta(id: string, name: string, supertype: string, types: string[], quantidade: number): Carta {
-        const carta = new Carta();
+        const carta: Carta = Object.assign({});
         carta.id = id;
         carta.name = name;
         carta.supertype = supertype;

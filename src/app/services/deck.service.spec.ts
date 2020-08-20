@@ -9,7 +9,7 @@ describe('DeckService', () => {
   let injector: TestBed;
   let service: DeckService;
   let decks: Deck[] = [];
-  let deckAdicionar: Deck = new Deck();
+  let deckAdicionar: Deck = Object.assign({});
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
@@ -21,7 +21,7 @@ describe('DeckService', () => {
 
   afterEach(() => {
     decks = [];
-    deckAdicionar = new Deck();
+    deckAdicionar = Object.assign({});
     service = null;
     localStorage.clear();
   });

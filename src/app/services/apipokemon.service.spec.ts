@@ -27,7 +27,7 @@ describe('ApipokemonService', () => {
     });
     injector = getTestBed();
     httpMock = injector.get(HttpTestingController);
-    service = TestBed.get(ApiPokemonService);
+    service = TestBed.inject(ApiPokemonService);
   });
 
   afterEach(() => {

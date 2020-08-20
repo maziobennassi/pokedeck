@@ -33,7 +33,7 @@ describe('ManterDecksComponent', () => {
   const cartaQuantidade4: Carta = CartaMock.retornarCarta("65", "Teste 4", "Teste", ["Teste"], 2);
   const cartasQuantidadeMaxima = [carta, carta, carta, carta];
   const cartasQuantidadeTotalDeck = CartaMock.retornarCartasQuantidadeTotalDeck();
-  const deck: Deck = new Deck();
+  const deck: Deck = Object.assign({});
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

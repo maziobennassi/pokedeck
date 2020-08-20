@@ -9,7 +9,7 @@ import { DeckService } from 'src/app/services/deck.service';
   styleUrls: ['./visualizar-decks.component.css']
 })
 export class VisualizarDecksComponent implements OnInit {
-  private deck: Deck = new Deck();
+  private deck: Deck = Object.assign({cartas: []});
   public tipos: string[] = []; 
   private todosTiposEnergia: string[] = []; 
   public tiposEnergia: string[] = []; 

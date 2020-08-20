@@ -8,7 +8,7 @@ export class DeckMock {
   }
 
   public static retornarDeck(id: number, nome: string, quantidade: number): Deck {
-    const deck: Deck = new Deck();
+    const deck: Deck = Object.assign({});
     deck.id
     deck.cartas = CartaMock.retornarCartas();
     deck.nome = nome;

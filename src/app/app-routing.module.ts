@@ -4,11 +4,6 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   { path: '',  redirectTo: 'decks', pathMatch: 'full' },
   {
-    path: 'decks',
-    loadChildren: () =>
-          import('./components/deck/listar-decks/listar-decks.module').then(m => m.ListarDecksModule)
-  },
-  {
     path: 'cadastrar-deck',
     loadChildren: () =>
           import('./components/deck/manter-decks/manter-decks.module').then(m => m.ManterDecksModule)

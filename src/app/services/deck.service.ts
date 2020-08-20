@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 
 import { Deck } from '../models/deck';
-import { DeclareFunctionStmt } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +17,7 @@ export class DeckService {
 
   public buscarPorId(id: number): Deck {
     const decks: Deck[] = this.buscarTodos();
-    const deck: Deck = decks.find(x => x.id == id);
+    const deck: Deck = decks.find(x => x.id === id);
     return deck;
   }
 
@@ -35,7 +34,7 @@ export class DeckService {
 
   public remover(deckRemover: Deck): void {
     const decks: Deck[] = this.buscarTodos();
-    const index = decks.findIndex(deck => deck.id == deckRemover.id);
+    const index = decks.findIndex(deck => deck.id === deckRemover.id);
     if (index >= 0) {
       decks.splice(index, 1);
       localStorage.setItem(this.storageDeck, JSON.stringify(decks));
